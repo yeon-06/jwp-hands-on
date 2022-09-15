@@ -50,6 +50,8 @@ class ServletTest {
 
         // expected를 0이 아닌 올바른 값으로 바꿔보자.
         // 예상한 결과가 나왔는가? 왜 이런 결과가 나왔을까?
-        assertThat(Integer.parseInt(response.body())).isEqualTo(0);
+
+        // 👉 body에 담기는 localCounter 값은 로직이 호출될 때마다 초기화 & 카운트 된다.
+        assertThat(Integer.parseInt(response.body())).isEqualTo(1);
     }
 }
