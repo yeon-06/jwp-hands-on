@@ -44,8 +44,10 @@ class ReflectionTest {
     @Test
     void givenClass_whenGetsMethods_thenCorrect() {
         final Class<?> animalClass = Student.class;
-        final Method[] methods = null;
-        final List<String> actualMethods = null;
+        final Method[] methods = animalClass.getDeclaredMethods();
+        final List<String> actualMethods = Arrays.stream(methods)
+                .map(Method::getName)
+                .collect(Collectors.toList());
 
         assertThat(actualMethods)
                 .hasSize(3)
