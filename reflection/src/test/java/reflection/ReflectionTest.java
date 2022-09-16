@@ -112,7 +112,7 @@ class ReflectionTest {
     @Test
     void givenClassField_whenGetsType_thenCorrect() throws Exception {
         final Field field = Question.class.getDeclaredField("questionId");
-        final Class<?> fieldClass = null;
+        final Class<?> fieldClass = field.getType();
 
         assertThat(fieldClass.getSimpleName()).isEqualTo("long");
     }
