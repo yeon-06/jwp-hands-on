@@ -1,36 +1,31 @@
 package reflection;
 
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 class ReflectionTest {
-
-    private static final Logger log = LoggerFactory.getLogger(ReflectionTest.class);
 
     @Test
     void givenObject_whenGetsClassName_thenCorrect() {
         final Class<Question> clazz = Question.class;
 
-        assertThat(clazz.getSimpleName()).isEqualTo("");
-        assertThat(clazz.getName()).isEqualTo("");
-        assertThat(clazz.getCanonicalName()).isEqualTo("");
+        assertThat(clazz.getSimpleName()).isEqualTo("Question");
+        assertThat(clazz.getName()).isEqualTo("reflection.Question");
+        assertThat(clazz.getCanonicalName()).isEqualTo("reflection.Question");
     }
 
     @Test
     void givenClassName_whenCreatesObject_thenCorrect() throws ClassNotFoundException {
         final Class<?> clazz = Class.forName("reflection.Question");
 
-        assertThat(clazz.getSimpleName()).isEqualTo("");
-        assertThat(clazz.getName()).isEqualTo("");
-        assertThat(clazz.getCanonicalName()).isEqualTo("");
+        assertThat(clazz.getSimpleName()).isEqualTo("Question");
+        assertThat(clazz.getName()).isEqualTo("reflection.Question");
+        assertThat(clazz.getCanonicalName()).isEqualTo("reflection.Question");
     }
 
     @Test
