@@ -104,7 +104,7 @@ class ReflectionTest {
     @Test
     void givenClass_whenGetsFieldsByName_thenCorrect() throws Exception {
         final Class<?> questionClass = Question.class;
-        final Field field = null;
+        final Field field = questionClass.getDeclaredField("questionId");
 
         assertThat(field.getName()).isEqualTo("questionId");
     }
