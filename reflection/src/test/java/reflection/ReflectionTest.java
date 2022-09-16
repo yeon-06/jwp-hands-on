@@ -5,7 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class ReflectionTest {
@@ -31,8 +33,10 @@ class ReflectionTest {
     @Test
     void givenObject_whenGetsFieldNamesAtRuntime_thenCorrect() {
         final Object student = new Student();
-        final Field[] fields = null;
-        final List<String> actualFieldNames = null;
+        final Field[] fields = student.getClass().getDeclaredFields();
+        final List<String> actualFieldNames = Arrays.stream(fields)
+                .map(Field::getName)
+                .collect(Collectors.toList());
 
         assertThat(actualFieldNames).contains("name", "age");
     }
