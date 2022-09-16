@@ -87,7 +87,7 @@ class ReflectionTest {
     @Test
     void givenClass_whenGetsPublicFields_thenCorrect() {
         final Class<?> questionClass = Question.class;
-        final Field[] fields = null;
+        final Field[] fields = questionClass.getFields();
 
         assertThat(fields).hasSize(0);
     }
