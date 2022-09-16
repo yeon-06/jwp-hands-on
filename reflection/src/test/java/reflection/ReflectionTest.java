@@ -95,7 +95,7 @@ class ReflectionTest {
     @Test
     void givenClass_whenGetsDeclaredFields_thenCorrect() {
         final Class<?> questionClass = Question.class;
-        final Field[] fields = null;
+        final Field[] fields = questionClass.getDeclaredFields();
 
         assertThat(fields).hasSize(6);
         assertThat(fields[0].getName()).isEqualTo("questionId");
