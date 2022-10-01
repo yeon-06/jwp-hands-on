@@ -31,3 +31,7 @@
     - Reflection 활용 방법
 5. [di](https://github.com/yeon-06/jwp-hands-on/pull/5)
     - DI 컨테이너
+6. [connection pool](https://github.com/yeon-06/jwp-hands-on/pull/6)
+    - DataSource 다루기
+    - Connection Pool
+    - HikariCP 설정
