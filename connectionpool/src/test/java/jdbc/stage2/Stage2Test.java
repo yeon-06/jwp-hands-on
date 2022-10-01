@@ -1,19 +1,18 @@
 package jdbc.stage2;
 
+import static com.zaxxer.hikari.util.UtilityElf.quietlySleep;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.zaxxer.hikari.HikariDataSource;
 import com.zaxxer.hikari.pool.HikariPool;
+import java.lang.reflect.Field;
+import java.sql.Connection;
+import javax.sql.DataSource;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.sql.DataSource;
-import java.lang.reflect.Field;
-import java.sql.Connection;
-
-import static com.zaxxer.hikari.util.UtilityElf.quietlySleep;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class Stage2Test {
@@ -32,7 +31,7 @@ class Stage2Test {
     @Test
     void test() throws InterruptedException {
         final var hikariDataSource = (HikariDataSource) dataSource;
-        final var hikariPool = getPool((HikariDataSource) dataSource);
+        final var hikariPool = getPool(hikariDataSource);
 
         // 설정한 커넥션 풀 최대값보다 더 많은 스레드를 생성해서 동시에 디비에 접근을 시도하면 어떻게 될까?
         final var threads = new Thread[20];
@@ -49,10 +48,10 @@ class Stage2Test {
         }
 
         // 동시에 많은 요청이 몰려도 최대 풀 사이즈를 유지한다.
-        assertThat(hikariPool.getTotalConnections()).isEqualTo(0);
+        assertThat(hikariPool.getTotalConnections()).isEqualTo(5);
 
         // DataSourceConfig 클래스에서 직접 생성한 커넥션 풀.
-        assertThat(hikariDataSource.getPoolName()).isEqualTo("");
+        assertThat(hikariDataSource.getPoolName()).isEqualTo("gugu");
     }
 
     // 데이터베이스에 연결만 하는 메서드. 커넥션 풀에 몇 개의 연결이 생기는지 확인하는 용도.
@@ -70,8 +69,7 @@ class Stage2Test {
     }
 
     // 학습 테스트를 위해 HikariPool을 추출
-    public static HikariPool getPool(final HikariDataSource hikariDataSource)
-    {
+    public static HikariPool getPool(final HikariDataSource hikariDataSource) {
         try {
             Field field = hikariDataSource.getClass().getDeclaredField("pool");
             field.setAccessible(true);
