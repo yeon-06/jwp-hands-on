@@ -35,3 +35,7 @@
     - DataSource 다루기
     - Connection Pool
     - HikariCP 설정
+7. [transaction](https://github.com/yeon-06/jwp-hands-on/pull/7)
+    - ACID
+    - 트랜잭션 격리 수준
+    - 스프링 트랜잭션 전파
